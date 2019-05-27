@@ -11,10 +11,15 @@ public class CAgent extends CObject {
 	protected final static double CHANGING_DIRECTION_PROB = 0.05;
 	public static final double DISTANCE_MIN = 5;
 	public static final double SIZE = 5;
+	public static final int maxCombat = 5;
+	public static final int minCombat = 0;
+	
 	
 	protected CNourriture mLoading;
 	protected double mSpeedX;
 	protected double mSpeedY;
+	protected int mCombat;
+
 	
 	public boolean mBusy = false;
 	
@@ -30,6 +35,7 @@ public class CAgent extends CObject {
 		
 		mSpeedX = CEnvironement.getInstance().mRandomGen.nextDouble() - 0.5;
 		mSpeedY = CEnvironement.getInstance().mRandomGen.nextDouble() - 0.5;
+		combat();
 		normalize();
 	}
 	
@@ -81,6 +87,10 @@ public class CAgent extends CObject {
 	    }
 	          
 	    normalize();
+	}
+	
+	protected void combat() { 
+		mCombat = (int) (Math.random() * ( maxCombat - minCombat ));
 	}
 	
     protected void updateDirection(List<CNourriture> pNourritureList) {
